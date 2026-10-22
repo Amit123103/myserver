@@ -1,0 +1,26 @@
+{
+  "name": "myserver",
+  "version": "1.0.0",
+  "description": "Production-ready zero-dependency API server, DNS server, WAL database, and reverse tunnel built entirely with Node.js built-in modules",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "supervisor": "node src/supervisor/index.js",
+    "test": "node tests/run-all.js",
+    "keys": "node cli/keys.js",
+    "backup": "node cli/backup.js create",
+    "backup:restore": "node cli/backup.js restore",
+    "backup:verify": "node cli/backup.js verify",
+    "certs:ca": "node cli/certs.js ca",
+    "certs:server": "node cli/certs.js server",
+    "dns": "node src/dns/server.js",
+    "tunnel:server": "node src/tunnel/relay-server.js",
+    "tunnel:client": "node src/tunnel/relay-client.js"
+  },
+  "keywords": ["zero-dependency", "pure-node", "database", "dns", "https", "wal", "api"],
+  "author": "Systems Engineer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

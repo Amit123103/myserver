@@ -1,0 +1,47 @@
+[
+  {
+    "id": "f91835a0-34bb-4620-85fd-eb6fc8841b1b",
+    "name": "Integration Test",
+    "hashedKey": "1b249ac2570eff36c46bf84484aef064eff724e793e2383a585896b0efce39cd",
+    "prefix": "sk_9692...",
+    "status": "active",
+    "createdAt": "2026-10-22T15:07:39.663Z",
+    "lastUsedAt": "2026-10-22T15:07:43.399Z"
+  },
+  {
+    "id": "cde1430c-2a19-4d75-a735-5aa2f7c76a7f",
+    "name": "Master Key",
+    "hashedKey": "959b8dd573f649421db8e04cc24dd1daf7ba30fbae9f0a19c5018085bc9e2984",
+    "prefix": "sk_cce9...",
+    "status": "active",
+    "createdAt": "2026-10-22T15:07:56.984Z",
+    "lastUsedAt": null
+  },
+  {
+    "id": "b6840467-e230-4f48-a99d-87613449e599",
+    "name": "Integration Test",
+    "hashedKey": "50f9c20b013af3aed0cf323b38256b606964e2868cc0782cf7b73cfa63373931",
+    "prefix": "sk_ff9f...",
+    "status": "active",
+    "createdAt": "2026-10-22T15:09:47.749Z",
+    "lastUsedAt": "2026-10-22T15:09:47.952Z"
+  },
+  {
+    "id": "9a9a0d02-3114-4cc0-aea5-240a911c6348",
+    "name": "My Client App",
+    "hashedKey": "0e37271546923cd967caf234cb749a2fbea8726970fcb446dc6a34fe7a36f3a5",
+    "prefix": "sk_3bb8...",
+    "status": "active",
+    "createdAt": "2026-10-22T15:12:48.041Z",
+    "lastUsedAt": null
+  },
+  {
+    "id": "ba89dfeb-2243-4662-8194-9c75e3fa9f47",
+    "name": "Integration Test",
+    "hashedKey": "44a46b598e9c898c60c728daf96b4c29ee4ba14de37115cbd0b830932d4ed7f9",
+    "prefix": "sk_abd5...",
+    "status": "active",
+    "createdAt": "2026-10-22T15:23:55.888Z",
+    "lastUsedAt": "2026-10-22T15:23:56.006Z"
+  }
+]

@@ -1,0 +1,3 @@
+{"lsn":1,"ts":1792682635975,"col":"notes","op":"INSERT","data":{"title":"DevOps Checklist Note","content":"Production readiness verification","status":"todo","priority":"high","tags":["deployment","checklist"],"id":"e225798d-1d2e-494e-8fd0-1138f2aaa216","createdAt":"2026-10-22T15:23:55.975Z","updatedAt":"2026-10-22T15:23:55.975Z"}}
+{"lsn":2,"ts":1792682635988,"col":"notes","op":"UPDATE","data":{"id":"e225798d-1d2e-494e-8fd0-1138f2aaa216","updates":{"status":"completed"}}}
+{"lsn":3,"ts":1792682636009,"col":"notes","op":"DELETE","data":{"id":"e225798d-1d2e-494e-8fd0-1138f2aaa216"}}

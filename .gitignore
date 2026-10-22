@@ -1,0 +1,31 @@
+# Environment variables
+.env
+*.env.local
+
+# Database data and state
+data/*.lock
+data/*.wal
+data/*.tmp
+data/*.bak
+
+# Backups and logs
+backups/*.tar.gz
+backups/*.bak
+logs/*.log
+logs/*.log.*
+
+# TLS Private keys and certificates
+certs/*.key
+certs/*.pfx
+certs/*.pem
+!certs/.gitkeep
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS specific files
+Thumbs.db
+.DS_Store

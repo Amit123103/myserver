@@ -1,0 +1,42 @@
+{
+  "origin": "myserver.local.",
+  "ttl": 300,
+  "records": [
+    {
+      "name": "myserver.local",
+      "type": "A",
+      "data": "192.168.31.134",
+      "ttl": 300
+    },
+    {
+      "name": "api.myserver.local",
+      "type": "CNAME",
+      "data": "myserver.local",
+      "ttl": 300
+    },
+    {
+      "name": "myserver.local",
+      "type": "TXT",
+      "data": "v=spf1 ~all",
+      "ttl": 300
+    },
+    {
+      "name": "myserver.local",
+      "type": "NS",
+      "data": "ns1.myserver.local",
+      "ttl": 86400
+    },
+    {
+      "name": "ns1.myserver.local",
+      "type": "A",
+      "data": "192.168.31.134",
+      "ttl": 86400
+    },
+    {
+      "name": "localhost",
+      "type": "A",
+      "data": "127.0.0.1",
+      "ttl": 300
+    }
+  ]
+}

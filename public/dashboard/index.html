@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>myserver — Self-Hosted Control Panel</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
+  <link rel="stylesheet" href="/dashboard/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-text">myserver</span>
+        </div>
+        <span class="badge env-badge">Zero-Dependency</span>
+      </div>
+      <div class="topbar-right">
+        <div class="status-indicator" id="server-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Connecting...</span>
+        </div>
+        <a href="/docs" class="nav-link">API Docs</a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- System Overview Cards -->
+      <section class="section">
+        <h2 class="section-title">System Overview</h2>
+        <div class="card-grid" id="system-cards">
+          <div class="metric-card">
+            <div class="metric-icon" style="background: linear-gradient(135deg, #10b981, #059669)">🟢</div>
+            <div class="metric-info">
+              <span class="metric-label">Status</span>
+              <span class="metric-value" id="health-status">—</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb)">⏱️</div>
+            <div class="metric-info">
+              <span class="metric-label">Uptime</span>
+              <span class="metric-value" id="uptime-value">—</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706)">💾</div>
+            <div class="metric-info">
+              <span class="metric-label">Memory (RSS)</span>
+              <span class="metric-value" id="memory-value">—</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed)">📝</div>
+            <div class="metric-info">
+              <span class="metric-label">Total Notes</span>
+              <span class="metric-value" id="notes-count">—</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deployed Projects Section -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Deployed Projects</h2>
+          <button class="btn btn-primary" id="btn-deploy-new">
+            <span>+</span> Deploy New Project
+          </button>
+        </div>
+        <div class="projects-grid" id="projects-grid">
+          <div class="empty-state" id="empty-projects">
+            <div class="empty-icon">📦</div>
+            <h3>No Projects Deployed Yet</h3>
+            <p>Click "Deploy New Project" to host your first web app on this server.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Actions Section -->
+      <section class="section">
+        <h2 class="section-title">Quick Reference</h2>
+        <div class="card-grid quick-ref-grid">
+          <div class="ref-card">
+            <h3>🔑 API Keys</h3>
+            <pre><code>node cli/keys.js create "App Name"
+node cli/keys.js list
+node cli/keys.js revoke &lt;ID&gt;</code></pre>
+          </div>
+          <div class="ref-card">
+            <h3>💾 Backups</h3>
+            <pre><code>npm run backup
+npm run backup:verify
+node cli/backup.js restore &lt;file&gt;</code></pre>
+          </div>
+          <div class="ref-card">
+            <h3>🔒 Certificates</h3>
+            <pre><code>npm run certs:ca
+npm run certs:server
+node cli/certs.js trust</code></pre>
+          </div>
+          <div class="ref-card">
+            <h3>🖥️ Service</h3>
+            <pre><code># Start / Stop / Status
+npm run supervisor
+Start-ScheduledTask -TaskName "MyServer_Daemon"
+Stop-ScheduledTask -TaskName "MyServer_Daemon"</code></pre>
+          </div>
+          <div class="ref-card">
+            <h3>🌐 Deploy via cURL</h3>
+            <pre><code>curl -k -X POST https://myserver.local/api/v1/projects/deploy \
+  -H "x-api-key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "My App",
+    "slug": "my-app",
+    "html": "&lt;h1&gt;Hello!&lt;/h1&gt;"
+  }'</code></pre>
+          </div>
+          <div class="ref-card">
+            <h3>📂 Deploy via Folder</h3>
+            <pre><code># Simply copy files into:
+# ./public/projects/my-app/
+#   ├── index.html
+#   ├── style.css
+#   └── app.js
+# Then visit: https://myserver.local/projects/my-app/</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Deploy Modal -->
+    <div class="modal-overlay" id="deploy-modal" style="display:none">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>🚀 Deploy New Project</h2>
+          <button class="modal-close" id="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="project-name">Project Name <span class="required">*</span></label>
+            <input type="text" id="project-name" placeholder="My Awesome App" maxlength="100">
+          </div>
+          <div class="form-group">
+            <label for="project-slug">URL Slug</label>
+            <input type="text" id="project-slug" placeholder="my-awesome-app (auto-generated from name)">
+            <small class="field-hint">Your project will be available at: <code>/projects/<span id="slug-preview">...</span>/</code></small>
+          </div>
+          <div class="form-group">
+            <label for="project-desc">Description</label>
+            <input type="text" id="project-desc" placeholder="A brief description of the project">
+          </div>
+          <div class="form-group">
+            <label for="project-html">HTML Content</label>
+            <textarea id="project-html" rows="8" placeholder="<!DOCTYPE html>&#10;<html>&#10;<head><title>My App</title></head>&#10;<body><h1>Hello World</h1></body>&#10;</html>"></textarea>
+            <small class="field-hint">Leave blank for a beautiful default template</small>
+          </div>
+          <div class="form-group">
+            <label for="project-css">CSS Styles</label>
+            <textarea id="project-css" rows="5" placeholder="body { background: #0f172a; color: white; }"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="project-js">JavaScript</label>
+            <textarea id="project-js" rows="5" placeholder="console.log('App loaded!');"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="api-key-input">API Key <span class="required">*</span></label>
+            <input type="password" id="api-key-input" placeholder="sk_...">
+            <small class="field-hint">Required for deploy. Run <code>node cli/keys.js list</code> to see your keys.</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="btn-cancel">Cancel</button>
+          <button class="btn btn-primary" id="btn-submit-deploy">🚀 Deploy Project</button>
+        </div>
+        <div class="deploy-result" id="deploy-result" style="display:none"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>myserver &bull; Zero-Dependency Self-Hosted Infrastructure &bull; Node.js <span id="node-version"></span></p>
+    </footer>
+  </div>
+
+  <script src="/dashboard/app.js"></script>
+</body>
+</html>
